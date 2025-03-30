@@ -5,3 +5,4 @@ if x>0 and y>0:
     print(x+y,x-y,x*y)
 else:
     print('err negative num')
+#elad Avrahami
