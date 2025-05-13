@@ -42,4 +42,12 @@ while cap.isOpened():
 
 cap.release()
 cv2.destroyAllWindows()
+
+
+
+
+
+
+  bash: python3 object_detection.py
+
 <pre\>
