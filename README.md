@@ -147,12 +147,6 @@ cv2.destroyAllWindows()
 
 
 
-
-
-
-
-
-
     
 <pre\>
 
