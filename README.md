@@ -99,23 +99,23 @@ pillow                       11.2.1
 
     ********************************************************************************************
 import cv2
+import numpy as np
 import mediapipe as mp
 import google.generativeai as genai
+from mediapipe.tasks import vision
+from mediapipe.tasks.python.core.base_options import BaseOptions
 
 # הגדרת מודל Gemini
 genai.configure(api_key="YOUR_GEMINI_API_KEY")
 
 # הגדרת זיהוי אובייקטים
-
-from mediapipe.tasks import vision
-from mediapipe.tasks.python import BaseOptions
-
 options = vision.ObjectDetectorOptions(
     base_options=BaseOptions(model_asset_path="efficientdet_lite0.tflite"),
     running_mode=vision.RunningMode.IMAGE
 )
 
 detector = vision.ObjectDetector.create_from_options(options)
+
 # הפעלת מצלמה
 cap = cv2.VideoCapture(0)
 
@@ -124,15 +124,17 @@ while cap.isOpened():
     if not ret:
         break
 
-    # זיהוי אובייקטים
-    results = detector.process(cv2.cvtColor(frame, cv2.COLOR_BGR2RGB))
+    # המרת הפריים לתמונה שמדיהפייפ יכול לעבד
+    mp_image = mp.Image(image_format=mp.ImageFormat.SRGB, data=cv2.cvtColor(frame, cv2.COLOR_BGR2RGB))
+    results = detector.detect(mp_image)
 
+    # הצגת תוצאות זיהוי האובייקטים
     if results.detections:
         for detection in results.detections:
-            label = detection.label
+            label = detection.categories[0].category_name if detection.categories else "Unknown"
             print(f"Detected: {label}")
 
-            # שליחת מידע ל-Gemini לניתוח
+            # שליחת מידע ל-Gemini לניתוח וקבלת תגובה
             response = genai.chat(f"What can you tell me about {label}?")
             print("Gemini Response:", response.text)
 
@@ -142,25 +144,6 @@ while cap.isOpened():
 
 cap.release()
 cv2.destroyAllWindows()
-
-
-
-
-
-
-
-
-
-
-
-    >>> %Run Object_detection.py
-Traceback (most recent call last):
-  File "/home/eladron/Desktop/Object_detection.py", line 11
-    from mediapipe.tasks.python
-                               ^
-SyntaxError: invalid syntax
->>> 
-
 
 
 
