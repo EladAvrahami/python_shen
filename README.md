@@ -76,7 +76,9 @@ Traceback (most recent call last):
 ModuleNotFoundError: No module named 'mediapipe'
 >>> 
   *type object 'ObjectDetector' has no attribute 'ObjectDetectorOptions'
-
+**********************************
+source ~/yolo/my_env/bin/activate
+thonny
 
 
 
