@@ -160,6 +160,11 @@ Traceback (most recent call last):
 RuntimeError: Unable to open file at /home/eladron/Desktop/gemini_project/efficientdet_lite0.tflite
 >>> 
 
+Traceback (most recent call last):
+  File "/home/eladron/Desktop/Object_detection.py", line 9, in <module>
+    mp_object_detection = mp.solutions.object_detection
+AttributeError: module 'mediapipe.python.solutions' has no attribute 'object_detection'
+>>> 
 
    
 <pre\>
