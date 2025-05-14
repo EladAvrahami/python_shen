@@ -57,6 +57,16 @@ cv2.destroyAllWindows()
 
 mp_object_detection = mp.tasks.vision.ObjectDetector
 detector = mp_object_detection.create_from_options(mp_object_detection.ObjectDetectorOptions())
+
+  ***********************************************************************************************************
+  mp_object_detection = mp.tasks.vision.ObjectDetector
+
+options = mp_object_detection.ObjectDetectorOptions(
+    base_options=mp.tasks.BaseOptions(model_asset_path="efficientdet_lite0.tflite"),
+    running_mode=mp.tasks.vision.RunningMode.IMAGE
+)
+detector = mp_object_detection.create_from_options(options)
+************************************************************************************************
   
 
 
