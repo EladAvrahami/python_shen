@@ -82,6 +82,8 @@ pip install numpy pillow
 
 
 888888888888888888888888888888888888888888888888888888888888
+    ![image](https://github.com/user-attachments/assets/ffd1cfa2-116f-40d5-b39f-a4fd0466d705)
+
    pip install google-generativeai opencv-python mediapipe numpy pillow
 
 
