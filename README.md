@@ -97,6 +97,54 @@ numpy                        1.26.4
 opencv-python                4.11.0.86
 pillow                       11.2.1
 
+    ********************************************************************************************
+    import cv2
+import numpy as np
+import mediapipe as mp
+import google.generativeai as genai
+
+# הגדרת מודל Gemini
+genai.configure(api_key="YOUR_GEMINI_API_KEY")
+
+# הגדרת זיהוי אובייקטים
+BaseOptions = mp.tasks.BaseOptions
+ObjectDetector = mp.tasks.vision.ObjectDetector
+ObjectDetectorOptions = mp.tasks.vision.ObjectDetectorOptions
+RunningMode = mp.tasks.vision.RunningMode
+
+options = ObjectDetectorOptions(
+    base_options=BaseOptions(model_asset_path="efficientdet_lite0.tflite"),
+    running_mode=RunningMode.IMAGE
+)
+
+detector = ObjectDetector.create_from_options(options)
+
+# הפעלת מצלמה
+cap = cv2.VideoCapture(0)
+
+while cap.isOpened():
+    ret, frame = cap.read()
+    if not ret:
+        break
+
+    mp_image = mp.Image(image_format=mp.ImageFormat.SRGB, data=cv2.cvtColor(frame, cv2.COLOR_BGR2RGB))
+    results = detector.detect(mp_image)
+
+    if results.detections:
+        for detection in results.detections:
+            label = detection.categories[0].category_name if detection.categories else "Unknown"
+            print(f"Detected: {label}")
+
+            response = genai.chat(f"What can you tell me about {label}?")
+            print("Gemini Response:", response.text)
+
+    cv2.imshow("Object Detection", frame)
+    if cv2.waitKey(1) & 0xFF == ord('q'):
+        break
+
+cap.release()
+cv2.destroyAllWindows()
+
 
 
 <pre\>
