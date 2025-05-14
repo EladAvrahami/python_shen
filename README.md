@@ -75,7 +75,8 @@ Traceback (most recent call last):
     import mediapipe as mp
 ModuleNotFoundError: No module named 'mediapipe'
 >>> 
-  
+  *type object 'ObjectDetector' has no attribute 'ObjectDetectorOptions'
+
 
 
 
