@@ -50,4 +50,15 @@ cv2.destroyAllWindows()
 
   bash: python3 object_detection.py
 
+
+  #mediapipe problome solution : 
+  
+  import mediapipe as mp
+
+mp_object_detection = mp.tasks.vision.ObjectDetector
+detector = mp_object_detection.create_from_options(mp_object_detection.ObjectDetectorOptions())
+  
+
+
+
 <pre\>
