@@ -98,7 +98,7 @@ opencv-python                4.11.0.86
 pillow                       11.2.1
 
     ********************************************************************************************
-import cv2
+import cv2#elad
 import numpy as np
 import mediapipe as mp
 import google.generativeai as genai
@@ -144,6 +144,7 @@ while cap.isOpened():
 
 cap.release()
 cv2.destroyAllWindows()
+
     
 
     
