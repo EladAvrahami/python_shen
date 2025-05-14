@@ -77,9 +77,9 @@ ModuleNotFoundError: No module named 'mediapipe'
 >>> 
   *type object 'ObjectDetector' has no attribute 'ObjectDetectorOptions'
 **********************************
-python3 -m venv my_env
-source my_env/bin/activate
 pip install google-generativeai opencv-python mediapipe
+pip install numpy pillow
+
 
 
 
