@@ -148,3 +148,20 @@ cv2.destroyAllWindows()
 
 
 <pre\>
+
+ <pre> 
+Traceback (most recent call last):
+  File "/home/eladron/Desktop/gemini_project/object_detection.py", line 20, in <module>
+    detector = ObjectDetector.create_from_options(options)
+  File "/home/eladron/Desktop/gemini_project/my_env/lib/python3.11/site-packages/mediapipe/tasks/python/vision/object_detector.py", line 238, in create_from_options
+    return cls(
+  File "/home/eladron/Desktop/gemini_project/my_env/lib/python3.11/site-packages/mediapipe/tasks/python/vision/core/base_vision_task_api.py", line 70, in __init__
+    self._runner = _TaskRunner.create(graph_config, packet_callback)
+RuntimeError: Unable to open file at /home/eladron/Desktop/gemini_project/efficientdet_lite0.tflite
+>>> 
+
+
+   
+<pre\>
+  
+  
