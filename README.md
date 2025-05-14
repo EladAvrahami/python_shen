@@ -91,6 +91,11 @@ pip install numpy pillow
     pip list | grep "google-generativeai\|opencv-python\|mediapipe\|numpy\|pillow"
 
 
+google-generativeai          0.8.5
+mediapipe                    0.10.18
+numpy                        1.26.4
+opencv-python                4.11.0.86
+pillow                       11.2.1
 
 
 
