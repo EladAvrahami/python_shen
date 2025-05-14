@@ -81,6 +81,11 @@ pip install google-generativeai opencv-python mediapipe
 pip install numpy pillow
 
 
+888888888888888888888888888888888888888888888888888888888888
+    source ~/Desktop/GEMINI_PROJECT/my_env/bin/activate thonny
+
+
+
 
 
 <pre\>
