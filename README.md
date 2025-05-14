@@ -166,6 +166,16 @@ Traceback (most recent call last):
 AttributeError: module 'mediapipe.python.solutions' has no attribute 'object_detection'
 >>> 
 
+    from mediapipe.tasks import vision
+from mediapipe.tasks.python import BaseOptions
+
+options = vision.ObjectDetectorOptions(
+    base_options=BaseOptions(model_asset_path="efficientdet_lite0.tflite"),
+    running_mode=vision.RunningMode.IMAGE
+)
+
+detector = vision.ObjectDetector.create_from_options(options)
+
    
 <pre\>
   
