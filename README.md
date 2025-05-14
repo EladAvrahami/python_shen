@@ -67,6 +67,14 @@ options = mp_object_detection.ObjectDetectorOptions(
 )
 detector = mp_object_detection.create_from_options(options)
 ************************************************************************************************
+
+  
+>>> %Run object_detection.py
+Traceback (most recent call last):
+  File "/home/eladron/yolo/object_detection.py", line 2, in <module>
+    import mediapipe as mp
+ModuleNotFoundError: No module named 'mediapipe'
+>>> 
   
 
 
