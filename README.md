@@ -6,9 +6,52 @@ https://ai.google.dev/gemini-api/docs/quickstart?hl=he&lang=python
 
 
 
+import cv2
+import numpy as np
+import mediapipe as mp
+import google.generativeai as genai
 
+# הגדרת מפתח API של Gemini
+genai.configure(api_key="YOUR_GEMINI_API_KEY")
 
+# הגדרת זיהוי אובייקטים עם MediaPipe Solutions
+mp_object_detection = mp.solutions.object_detection
+mp_drawing = mp.solutions.drawing_utils
 
+detector = mp_object_detection.ObjectDetection(model_selection=0)
+
+# הפעלת מצלמה
+cap = cv2.VideoCapture(0)
+
+while cap.isOpened():
+    ret, frame = cap.read()
+    if not ret:
+        break
+
+    # המרת הפריים למדיהפייפ
+    rgb_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+    results = detector.process(rgb_frame)
+
+    # עיבוד תוצאות הזיהוי
+    if results.detections:
+        for detection in results.detections:
+            # ציור מסגרת סביב האובייקט
+            mp_drawing.draw_detection(frame, detection)
+
+            # זיהוי האובייקט ושליחת מידע ל-Gemini
+            label = detection.label_id if detection.label_id else "Unknown"
+            response = genai.chat(f"Describe {label} briefly.")
+            cv2.putText(frame, response.text[:50], (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2)
+
+    # הצגת התמונה
+    cv2.imshow("Object Detection", frame)
+    if cv2.waitKey(1) & 0xFF == ord('q'):
+        break
+
+cap.release()
+cv2.destroyAllWindows()
+
+*****************************************************************
   eladron@raspberrypi:~ $ python3
 Python 3.11.2 (main, Nov 30 2024, 21:22:50) [GCC 12.2.0] on linux
 Type "help", "copyright", "credits" or "license" for more information.
