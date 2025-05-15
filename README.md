@@ -3,6 +3,57 @@ python class
 https://ai.google.dev/gemini-api/docs/quickstart?hl=he&lang=python
 <pre> 
 
+
+
+
+bash: python3 object_detection.py
+
+import cv2
+import mediapipe as mp
+import google.generativeai as genai
+
+# הגדרת מפתח API של Gemini
+genai.configure(api_key="YOUR_GEMINI_API_KEY")
+
+# הגדרת זיהוי אובייקטים באמצעות MediaPipe
+mp_face_detection = mp.solutions.face_detection
+mp_drawing = mp.solutions.drawing_utils
+
+# יצירת זיהוי פנים
+detector = mp_face_detection.FaceDetection(model_selection=0)
+
+# הפעלת מצלמה
+cap = cv2.VideoCapture(0)
+
+while cap.isOpened():
+    ret, frame = cap.read()
+    if not ret:
+        break
+
+    # המרת הפריים למדיהפייפ
+    rgb_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+    results = detector.process(rgb_frame)
+
+    # עיבוד תוצאות הזיהוי
+    if results.detections:
+        for detection in results.detections:
+            mp_drawing.draw_detection(frame, detection)
+
+            # שליחת נתונים ל-Gemini לקבלת מידע על הפנים
+            response = genai.chat("Describe a human face.")
+            cv2.putText(frame, response.text[:50], (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2)
+
+    # הצגת התמונה
+    cv2.imshow("Face Detection", frame)
+    if cv2.waitKey(1) & 0xFF == ord('q'):
+        break
+
+cap.release()
+cv2.destroyAllWindows()
+
+
+
+  ***********************************
 >>> %Run object_detection.py
 Traceback (most recent call last):
   File "/home/eladron/Desktop/gemini_project/object_detection.py", line 10, in <module>
