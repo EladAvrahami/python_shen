@@ -4,7 +4,9 @@ https://ai.google.dev/gemini-api/docs/quickstart?hl=he&lang=python
 <pre> 
 
 
-
+  source ~/Desktop/gemini_project/my_env/bin/activate
+pip show mediapipe
+***********************************
 >>> %Run object_detection.py
 Traceback (most recent call last):
   File "/home/eladron/Desktop/gemini_project/object_detection.py", line 5, in <module>
