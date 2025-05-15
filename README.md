@@ -3,9 +3,20 @@ python class
 https://ai.google.dev/gemini-api/docs/quickstart?hl=he&lang=python
 <pre> 
 
+ERROR: 
+    >>> %Run object_detection.py
+Error in cpuinfo: prctl(PR_SVE_GET_VL) failed
+INFO: Created TensorFlow Lite XNNPACK delegate for CPU.
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+W0000 00:00:1747351686.182597    3420 inference_feedback_manager.cc:114] Feedback manager requires a model with a single signature inference. Disabling support for feedback tensors.
+terminate called after throwing an instance of 'cv::Exception'
+  what():  OpenCV(4.5.5) /tmp/bazel_build/opencv/modules/imgproc/src/imgwarp.cpp:1724: error: (-215:Assertion failed) dst.cols < SHRT_MAX && dst.rows < SHRT_MAX && src.cols < SHRT_MAX && src.rows < SHRT_MAX in function 'remap'
 
 
+Process ended with exit code -6.
 
+************************************************
+    #ONLY FACE RECO TO TEST
 bash: python3 object_detection.py
 
 import cv2
