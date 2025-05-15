@@ -4,6 +4,20 @@ https://ai.google.dev/gemini-api/docs/quickstart?hl=he&lang=python
 <pre> 
 
 
+
+
+
+
+
+  eladron@raspberrypi:~ $ python3
+Python 3.11.2 (main, Nov 30 2024, 21:22:50) [GCC 12.2.0] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+>>> import mediapipe as mp
+>>> print(dir(mp.tasks))
+['BaseOptions', '__builtins__', '__cached__', '__doc__', '__file__', '__loader__', '__name__', '__package__', '__path__', '__spec__', 'audio', 'components', 'genai', 'text', 'vision']
+
+
+********************************************************************
   source ~/Desktop/gemini_project/my_env/bin/activate
 pip show mediapipe
 ***********************************
