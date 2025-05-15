@@ -3,9 +3,14 @@ python class
 https://ai.google.dev/gemini-api/docs/quickstart?hl=he&lang=python
 <pre> 
 
+>>> %Run object_detection.py
+Traceback (most recent call last):
+  File "/home/eladron/Desktop/gemini_project/object_detection.py", line 10, in <module>
+    mp_object_detection = mp.solutions.object_detection
+AttributeError: module 'mediapipe.python.solutions' has no attribute 'object_detection'
+>>> 
 
-
-
+**************************************************
 import cv2
 import numpy as np
 import mediapipe as mp
