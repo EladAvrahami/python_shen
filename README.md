@@ -4,6 +4,16 @@ https://ai.google.dev/gemini-api/docs/quickstart?hl=he&lang=python
 <pre> 
 
 
+
+
+
+    Error in cpuinfo: prctl(PR_SVE_GET_VL) failed
+INFO: Created TensorFlow Lite XNNPACK delegate for CPU.
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+W0000 00:00:1747352130.961954    3562 inference_feedback_manager.cc:114] Feedback manager requires a model with a single signature inference. Disabling support for feedback tensors.
+Frame size: 1x921600
+Resized frame to 640x480 to avoid OpenCV errors.
+************************************************
     image size test :
     import cv2
 import mediapipe as mp
