@@ -3,10 +3,64 @@ python class
 https://ai.google.dev/gemini-api/docs/quickstart?hl=he&lang=python
 <pre> 
 
+bash:pip install --upgrade tflite-runtime
 
+import cv2
+import mediapipe as mp
+import google.generativeai as genai
+import tensorflow as tf
 
+# השבתת MLIR Bridge ב-TensorFlow Lite כדי למנוע בעיות תאימות
+tf.config.experimental.disable_mlir_bridge()
 
+# הגדרת מפתח API של Gemini
+genai.configure(api_key="YOUR_GEMINI_API_KEY")
 
+# הגדרת זיהוי אובייקטים באמצעות MediaPipe
+mp_face_detection = mp.solutions.face_detection
+mp_drawing = mp.solutions.drawing_utils
+
+# יצירת זיהוי פנים
+detector = mp_face_detection.FaceDetection(model_selection=0)
+
+# הפעלת מצלמה
+cap = cv2.VideoCapture(0)
+
+while cap.isOpened():
+    ret, frame = cap.read()
+    if not ret:
+        break
+
+    # בדיקת גודל התמונה לפני עיבוד
+    print(f"Frame size: {frame.shape[0]}x{frame.shape[1]}")  # מציג את רוחב וגובה התמונה
+
+    # אם התמונה גדולה מדי או לא תקינה, מבצע שינוי גודל
+    if frame.shape[0] == 1 or frame.shape[1] > 32000:
+        frame = cv2.resize(frame, (640, 480))
+        print("Resized frame to 640x480 to avoid OpenCV errors.")
+
+    # המרת הפריים למדיהפייפ
+    rgb_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+    results = detector.process(rgb_frame)
+
+    # עיבוד תוצאות הזיהוי
+    if results.detections:
+        for detection in results.detections:
+            mp_drawing.draw_detection(frame, detection)
+
+            # שליחת נתונים ל-Gemini לקבלת מידע על הפנים
+            response = genai.chat("Describe a human face.")
+            cv2.putText(frame, response.text[:50], (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2)
+
+    # הצגת התמונה
+    cv2.imshow("Face Detection", frame)
+    if cv2.waitKey(1) & 0xFF == ord('q'):
+        break
+
+cap.release()
+cv2.destroyAllWindows()
+
+*******************************
     Error in cpuinfo: prctl(PR_SVE_GET_VL) failed
 INFO: Created TensorFlow Lite XNNPACK delegate for CPU.
 WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
