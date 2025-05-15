@@ -1,6 +1,6 @@
 # python_shen
 python class
-
+https://ai.google.dev/gemini-api/docs/quickstart?hl=he&lang=python
 <pre> 
   sudo raspi-config
 
