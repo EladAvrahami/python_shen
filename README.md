@@ -2,6 +2,20 @@
 python class
 https://ai.google.dev/gemini-api/docs/quickstart?hl=he&lang=python
 <pre> 
+
+
+
+>>> %Run object_detection.py
+Traceback (most recent call last):
+  File "/home/eladron/Desktop/gemini_project/object_detection.py", line 5, in <module>
+    from mediapipe.tasks import vision
+ImportError: cannot import name 'vision' from 'mediapipe.tasks' (/home/eladron/Desktop/gemini_project/my_env/lib/python3.11/site-packages/mediapipe/tasks/__init__.py)
+>>>
+
+
+
+
+    ****************************************************************************************************
 import cv2
 import numpy as np
 import mediapipe as mp
