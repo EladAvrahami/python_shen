@@ -6,36 +6,35 @@ https://ai.google.dev/gemini-api/docs/quickstart?hl=he&lang=python
 
 
 בדיקת קלט ממצלמה וOPENCV 
-    import cv2
+ import cv2
 
-# פתיחת חיבור למצלמה (נסה אינדקסים שונים אם 0 לא עובד, למשל 1, 2)
+# Open the connection to the camera (try different indexes if 0 doesn't work, e.g., 1, 2)
 cap = cv2.VideoCapture(0)
 
-# בדיקה אם החיבור למצלמה הצליח
+# Check if the camera connection was successful
 if not cap.isOpened():
-    print("לא ניתן לפתוח את המצלמה")
+    print("Cannot open camera")
     exit()
 
 while True:
-    # לכידת פריים אחר פריים
+    # Capture frame-by-frame
     ret, frame = cap.read()
 
-    # אם הפריים נקלט כראוי, ret יהיה True
+    # If the frame was captured correctly, ret is True
     if not ret:
-        print("לא ניתן לקלוט פריים (סוף סטריאו?)")
+        print("Can't receive frame (stream end?). Exiting ...")
         break
 
-    # הצגת הפריים הנוכחי
-    cv2.imshow('וידאו מהמצלמה', frame)
+    # Display the resulting frame
+    cv2.imshow('Camera Feed', frame)
 
-    # המתנה ללחיצה על מקש (במילישניות). מקש 27 הוא ESC
+    # Wait for a key press (in milliseconds). 27 is the ESC key
     if cv2.waitKey(1) == 27:
         break
 
-# סגירת החיבור למצלמה
+# Release the capture
 cap.release()
 cv2.destroyAllWindows()
-
 
     
 pip install opencv-python google-generativeai Pillow
