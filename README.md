@@ -3,6 +3,41 @@ python class
 https://ai.google.dev/gemini-api/docs/quickstart?hl=he&lang=python
 <pre> 
 
+ שליחת תמונה captured_frame.jpg לניתוח עי GEMINI וקבלת תוצאה בצורת Json: 
+
+import google.generativeai as genai
+from PIL import Image
+
+# Replace with your actual Gemini API key
+GOOGLE_API_KEY = "YOUR_API_KEY"
+genai.configure(api_key=GOOGLE_API_KEY)
+
+# Load the Gemini Pro Vision model
+model = genai.GenerativeModel('gemini-pro-vision')
+
+# Load the image
+try:
+    img = Image.open('captured_frame.jpg')
+except FileNotFoundError:
+    print("Error: captured_frame.jpg not found. Make sure you captured an image.")
+    exit()
+
+# Prepare the prompt and image data
+prompt = "Identify the objects present in this image."
+image_parts = [
+    {
+        'mime_type': 'image/jpeg',
+        'data': open('captured_frame.jpg', 'rb').read()
+    },
+]
+
+# Generate the response
+response = model.generate_content([prompt, image_parts])
+
+# Print the response
+print(response.text)
+
+ 
 
 ניסיון צילום תמונה : 
  import cv2
