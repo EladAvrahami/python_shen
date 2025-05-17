@@ -3,6 +3,16 @@ python class
 https://ai.google.dev/gemini-api/docs/quickstart?hl=he&lang=python
 <pre> 
 
+
+pip install opencv-python google-generativeai Pillow
+
+opencv-python (או בקיצור cv2) היא ספרייה עוצמתית לעיבוד תמונה ווידאו. היא תעזור לנו לגשת למצלמה, ללכוד פריימים ולצייר את הריבועים והכותרות.
+google-generativeai היא הספרייה הרשמית של גוגל לעבודה עם מודלי Gemini. היא תאפשר לנו לשלוח בקשות ל-API ולקבל תשובות.
+Pillow היא ספרייה נוספת שימושית לעיבוד תמונה.
+
+    
+
+    
 bash:pip install --upgrade tflite-runtime
 
 import cv2
