@@ -4,6 +4,49 @@ https://ai.google.dev/gemini-api/docs/quickstart?hl=he&lang=python
 <pre> 
 
 
+ניסיון צילום תמונה : 
+ import cv2
+
+# Open the connection to the camera (try different indexes if 0 doesn't work, e.g., 1, 2)
+cap = cv2.VideoCapture(1)  # Use the index that worked for you
+
+# Check if the camera connection was successful
+if not cap.isOpened():
+    print("Cannot open camera")
+    exit()
+
+while True:
+    # Capture frame-by-frame
+    ret, frame = cap.read()
+
+    # If the frame was captured correctly, ret is True
+    if not ret:
+        print("Can't receive frame (stream end?). Exiting ...")
+        break
+
+    # Display the resulting frame
+    cv2.imshow('Camera Feed (Press Space to capture, ESC to exit)', frame)
+
+    # Wait for a key press
+    key = cv2.waitKey(1) & 0xFF
+    if key == 27:  # ESC
+        break
+    elif key == 32:  # Spacebar
+        # Save the frame as an image file
+        cv2.imwrite('captured_frame.jpg', frame)
+        print("Image saved as captured_frame.jpg")
+        break  # Stop after capturing one image
+
+# Release the capture
+cap.release()
+cv2.destroyAllWindows()
+
+
+
+
+
+
+ 
 
 בדיקת קלט ממצלמה וOPENCV 
  import cv2
