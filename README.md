@@ -4,14 +4,48 @@ https://ai.google.dev/gemini-api/docs/quickstart?hl=he&lang=python
 <pre> 
 
 
+
+בדיקת קלט ממצלמה וOPENCV 
+    import cv2
+
+# פתיחת חיבור למצלמה (נסה אינדקסים שונים אם 0 לא עובד, למשל 1, 2)
+cap = cv2.VideoCapture(0)
+
+# בדיקה אם החיבור למצלמה הצליח
+if not cap.isOpened():
+    print("לא ניתן לפתוח את המצלמה")
+    exit()
+
+while True:
+    # לכידת פריים אחר פריים
+    ret, frame = cap.read()
+
+    # אם הפריים נקלט כראוי, ret יהיה True
+    if not ret:
+        print("לא ניתן לקלוט פריים (סוף סטריאו?)")
+        break
+
+    # הצגת הפריים הנוכחי
+    cv2.imshow('וידאו מהמצלמה', frame)
+
+    # המתנה ללחיצה על מקש (במילישניות). מקש 27 הוא ESC
+    if cv2.waitKey(1) == 27:
+        break
+
+# סגירת החיבור למצלמה
+cap.release()
+cv2.destroyAllWindows()
+
+
+    
 pip install opencv-python google-generativeai Pillow
 
 opencv-python (או בקיצור cv2) היא ספרייה עוצמתית לעיבוד תמונה ווידאו. היא תעזור לנו לגשת למצלמה, ללכוד פריימים ולצייר את הריבועים והכותרות.
 google-generativeai היא הספרייה הרשמית של גוגל לעבודה עם מודלי Gemini. היא תאפשר לנו לשלוח בקשות ל-API ולקבל תשובות.
 Pillow היא ספרייה נוספת שימושית לעיבוד תמונה.
 
-    
-
+  18.5.25  
+###############################################################################################################################################
     
 bash:pip install --upgrade tflite-runtime
 
