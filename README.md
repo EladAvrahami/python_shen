@@ -3,14 +3,14 @@ python class
 https://ai.google.dev/gemini-api/docs/quickstart?hl=he&lang=python
 <pre> 
 
-
-
 from google import genai
-from google.genai import types
+from google.generativeai import types
 
 # Replace with your actual Gemini API key
 GOOGLE_API_KEY = "YOUR_API_KEY"
-genai.configure(api_key=GOOGLE_API_KEY)
+
+# Initialize the Gemini Pro Vision model with the API key
+model = genai.GenerativeModel(model_name='gemini-pro-vision', api_key=GOOGLE_API_KEY) # או נסה 'gemini-2.0-flash'
 
 # Read the image file
 try:
@@ -29,9 +29,6 @@ image = types.Part.from_bytes(
 # Prepare the prompt
 prompt = "Identify the objects present in this image."
 
-# Initialize the Gemini Pro Vision model
-model = genai.GenerativeModel('gemini-pro-vision')  # Or try 'gemini-2.0-flash'
-
 # Send the prompt and image to the model
 response = model.generate_content(
     contents=[prompt, image]
@@ -40,170 +37,7 @@ response = model.generate_content(
 # Print the response
 print(response.text)
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
- 
- error************
- >>> %Run test_image_apiAnalasys1.py
-Traceback (most recent call last):
-  File "/home/eladron/Desktop/gemini_project/test_image_apiAnalasys1.py", line 25, in <module>
-    response = model.generate_content([prompt, image_parts])
-  File "/home/eladron/Desktop/gemini_project/my_env/lib/python3.11/site-packages/google/generativeai/generative_models.py", line 305, in generate_content
-    request = self._prepare_request(
-  File "/home/eladron/Desktop/gemini_project/my_env/lib/python3.11/site-packages/google/generativeai/generative_models.py", line 154, in _prepare_request
-    contents = content_types.to_contents(contents)
-  File "/home/eladron/Desktop/gemini_project/my_env/lib/python3.11/site-packages/google/generativeai/types/content_types.py", line 333, in to_contents
-    contents = [to_content(contents)]
-  File "/home/eladron/Desktop/gemini_project/my_env/lib/python3.11/site-packages/google/generativeai/types/content_types.py", line 296, in to_content
-    return protos.Content(parts=[to_part(part) for part in content])
-  File "/home/eladron/Desktop/gemini_project/my_env/lib/python3.11/site-packages/google/generativeai/types/content_types.py", line 296, in <listcomp>
-    return protos.Content(parts=[to_part(part) for part in content])
-  File "/home/eladron/Desktop/gemini_project/my_env/lib/python3.11/site-packages/google/generativeai/types/content_types.py", line 264, in to_part
-    return protos.Part(inline_data=to_blob(part))
-  File "/home/eladron/Desktop/gemini_project/my_env/lib/python3.11/site-packages/google/generativeai/types/content_types.py", line 210, in to_blob
-    raise TypeError(
-TypeError: Could not create `Blob`, expected `Blob`, `dict` or an `Image` type(`PIL.Image.Image` or `IPython.display.Image`).
-Got a: <class 'list'>
-Value: [<PIL.JpegImagePlugin.JpegImageFile image mode=RGB size=640x480 at 0x7F89D0A2D0>]
->>> 
-
-code***************
-import google.generativeai as genai
-from PIL import Image
-
-# Replace with your actual Gemini API key
-GOOGLE_API_KEY = "apikey"
-genai.configure(api_key=GOOGLE_API_KEY)
-
-# Load the Gemini Pro Vision model
-model = genai.GenerativeModel('gemini-pro-vision')
-
-# Load the image using Pillow
-try:
-    img = Image.open('captured_frame.jpg')
-except FileNotFoundError:
-    print("Error: captured_frame.jpg not found. Make sure you captured an image.")
-    exit()
-
-# Prepare the prompt and image data
-prompt = "Identify the objects present in this image."
-image_parts = [img]
-
-# Generate the response
-response = model.generate_content([prompt, image_parts])
-
-# Print the response
-print(response.text)
-************************************************
- שימוש במילון : 
- import google.generativeai as genai
-from PIL import Image
-
-# Replace with your actual Gemini API key
-GOOGLE_API_KEY = "YOUR_API_KEY"
-genai.configure(api_key=GOOGLE_API_KEY)
-
-# Load the Gemini Pro Vision model
-model = genai.GenerativeModel('gemini-pro-vision')
-
-# Load the image
-try:
-    with open('captured_frame.jpg', 'rb') as f:
-        image_data = f.read()
-except FileNotFoundError:
-    print("Error: captured_frame.jpg not found. Make sure you captured an image.")
-    exit()
-
-# Prepare the prompt and image data
-prompt = "Identify the objects present in this image."
-image_parts = {
-    'mime_type': 'image/jpeg',
-    'data': image_data
-}
-
-# Generate the response
-response = model.generate_content([prompt, image_parts])
-
-# Print the response
-print(response.text)
-
-
- או במילון PILLOW :
-
- import google.generativeai as genai
-from PIL import Image
-
-# Replace with your actual Gemini API key
-GOOGLE_API_KEY = "YOUR_API_KEY"
-genai.configure(api_key=GOOGLE_API_KEY)
-
-# Load the Gemini Pro Vision model
-model = genai.GenerativeModel('gemini-pro-vision')
-
-# Load the image using Pillow
-try:
-    img = Image.open('captured_frame.jpg')
-except FileNotFoundError:
-    print("Error: captured_frame.jpg not found. Make sure you captured an image.")
-    exit()
-
-# Prepare the prompt and image data
-prompt = "Identify the objects present in this image."
-image_parts = [img]
-
-# Generate the response
-response = model.generate_content([prompt, image_parts])
-
-# Print the response
-print(response.text)
-
-
-
-
-
- 
- ERROR:
->>> %Run test_image_apiAnalasys1.py
-Traceback (most recent call last):
-  File "/home/eladron/Desktop/gemini_project/test_image_apiAnalasys1.py", line 30, in <module>
-    response = model.generate_content([prompt, image_parts])
-  File "/home/eladron/Desktop/gemini_project/my_env/lib/python3.11/site-packages/google/generativeai/generative_models.py", line 305, in generate_content
-    request = self._prepare_request(
-  File "/home/eladron/Desktop/gemini_project/my_env/lib/python3.11/site-packages/google/generativeai/generative_models.py", line 154, in _prepare_request
-    contents = content_types.to_contents(contents)
-  File "/home/eladron/Desktop/gemini_project/my_env/lib/python3.11/site-packages/google/generativeai/types/content_types.py", line 333, in to_contents
-    contents = [to_content(contents)]
-  File "/home/eladron/Desktop/gemini_project/my_env/lib/python3.11/site-packages/google/generativeai/types/content_types.py", line 296, in to_content
-    return protos.Content(parts=[to_part(part) for part in content])
-  File "/home/eladron/Desktop/gemini_project/my_env/lib/python3.11/site-packages/google/generativeai/types/content_types.py", line 296, in <listcomp>
-    return protos.Content(parts=[to_part(part) for part in content])
-  File "/home/eladron/Desktop/gemini_project/my_env/lib/python3.11/site-packages/google/generativeai/types/content_types.py", line 264, in to_part
-    return protos.Part(inline_data=to_blob(part))
-  File "/home/eladron/Desktop/gemini_project/my_env/lib/python3.11/site-packages/google/generativeai/types/content_types.py", line 210, in to_blob
-    raise TypeError(
-TypeError: Could not create `Blob`, expected `Blob`, `dict` or an `Image` type(`PIL.Image.Image` or `IPython.display.Image`).
-Got a: <class 'list'>
-Value: [{'mime_type': 'image/jpeg', 'data': b'\xff\xd8\xff\xe0\x00\x10JFIF\x00\x01\x01\x00\x00\x01\x00\x01\x00\x00\xff\xdb\x00C\x00\x02\x01\x01\x01\x01\x01\x02\x01\x01\x01\x02\x02\x02\x02\x02\x04\x03\x02\x02\x02\x02\x05\x04\x04\x03\x04\x06\x05\x06\x06\x06\x05\x06\x06\x06\x07\t\x08\x06\x07\t\x07\x06\x06\x08\x0b\x08\t\n\n\n\n\n\x06\x08\x0b\x0c\x0b\n\x0c\t\n\n\n\xff\xdb\x00C\x01\x02\x02\x02
-
-
-
-
-
-
- 
-
+    
  שליחת תמונה captured_frame.jpg לניתוח עי GEMINI וקבלת תוצאה בצורת Json: 
 
 import google.generativeai as genai
