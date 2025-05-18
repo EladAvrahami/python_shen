@@ -3,7 +3,11 @@ python class
 https://ai.google.dev/gemini-api/docs/quickstart?hl=he&lang=python
 <pre> 
 
+Image segmentation זהות פריטיםו לפלח ולספק מסכה של קווי המתאר שלהם :
+    prompt = """Give the segmentation masks for all prominent items. Output a JSON list of segmentation masks where each entry contains the 2D bounding box in the key "box_2d", the segmentation mask in key "mask", and the text label in the key "label". Use descriptive labels."""
 
+    
+    
 
     
  שליחת תמונה captured_frame.jpg לניתוח עי GEMINI וקבלת description from gemini to console 
