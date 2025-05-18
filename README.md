@@ -3,6 +3,75 @@ python class
 https://ai.google.dev/gemini-api/docs/quickstart?hl=he&lang=python
 <pre> 
 
+
+
+ שימוש במילון : 
+ import google.generativeai as genai
+from PIL import Image
+
+# Replace with your actual Gemini API key
+GOOGLE_API_KEY = "YOUR_API_KEY"
+genai.configure(api_key=GOOGLE_API_KEY)
+
+# Load the Gemini Pro Vision model
+model = genai.GenerativeModel('gemini-pro-vision')
+
+# Load the image
+try:
+    with open('captured_frame.jpg', 'rb') as f:
+        image_data = f.read()
+except FileNotFoundError:
+    print("Error: captured_frame.jpg not found. Make sure you captured an image.")
+    exit()
+
+# Prepare the prompt and image data
+prompt = "Identify the objects present in this image."
+image_parts = {
+    'mime_type': 'image/jpeg',
+    'data': image_data
+}
+
+# Generate the response
+response = model.generate_content([prompt, image_parts])
+
+# Print the response
+print(response.text)
+
+
+ או במילון PILLOW :
+
+ import google.generativeai as genai
+from PIL import Image
+
+# Replace with your actual Gemini API key
+GOOGLE_API_KEY = "YOUR_API_KEY"
+genai.configure(api_key=GOOGLE_API_KEY)
+
+# Load the Gemini Pro Vision model
+model = genai.GenerativeModel('gemini-pro-vision')
+
+# Load the image using Pillow
+try:
+    img = Image.open('captured_frame.jpg')
+except FileNotFoundError:
+    print("Error: captured_frame.jpg not found. Make sure you captured an image.")
+    exit()
+
+# Prepare the prompt and image data
+prompt = "Identify the objects present in this image."
+image_parts = [img]
+
+# Generate the response
+response = model.generate_content([prompt, image_parts])
+
+# Print the response
+print(response.text)
+
+
+
+
+
+ 
  ERROR:
 >>> %Run test_image_apiAnalasys1.py
 Traceback (most recent call last):
