@@ -2,6 +2,59 @@
 python class
 https://ai.google.dev/gemini-api/docs/quickstart?hl=he&lang=python
 <pre> 
+
+
+
+from google import genai
+from google.genai import types
+
+# Replace with your actual Gemini API key
+GOOGLE_API_KEY = "YOUR_API_KEY"
+genai.configure(api_key=GOOGLE_API_KEY)
+
+# Read the image file
+try:
+    with open('captured_frame.jpg', 'rb') as f:
+        image_bytes = f.read()
+except FileNotFoundError:
+    print("Error: captured_frame.jpg not found. Make sure you captured an image.")
+    exit()
+
+# Prepare the image part
+image = types.Part.from_bytes(
+    data=image_bytes,
+    mime_type='image/jpeg'
+)
+
+# Prepare the prompt
+prompt = "Identify the objects present in this image."
+
+# Initialize the Gemini Pro Vision model
+model = genai.GenerativeModel('gemini-pro-vision')  # Or try 'gemini-2.0-flash'
+
+# Send the prompt and image to the model
+response = model.generate_content(
+    contents=[prompt, image]
+)
+
+# Print the response
+print(response.text)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
  error************
  >>> %Run test_image_apiAnalasys1.py
 Traceback (most recent call last):
