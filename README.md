@@ -3,74 +3,25 @@ python class
 https://ai.google.dev/gemini-api/docs/quickstart?hl=he&lang=python
 <pre> 
 
-from google import genai
-from google.generativeai import types
 
-# Replace with your actual Gemini API key
-GOOGLE_API_KEY = "YOUR_API_KEY"
 
-# Initialize the Gemini Pro Vision model with the API key
-model = genai.GenerativeModel(model_name='gemini-pro-vision', api_key=GOOGLE_API_KEY) # או נסה 'gemini-2.0-flash'
+    
+ שליחת תמונה captured_frame.jpg לניתוח עי GEMINI וקבלת description from gemini to console 
+    from google import genai
 
-# Read the image file
-try:
-    with open('captured_frame.jpg', 'rb') as f:
-        image_bytes = f.read()
-except FileNotFoundError:
-    print("Error: captured_frame.jpg not found. Make sure you captured an image.")
-    exit()
+client = genai.Client(api_key="")
 
-# Prepare the image part
-image = types.Part.from_bytes(
-    data=image_bytes,
-    mime_type='image/jpeg'
-)
 
-# Prepare the prompt
-prompt = "Identify the objects present in this image."
+my_file = client.files.upload(file="captured_frame.jpg")
+#/home/eladron/Desktop/gemini_project/
+response = client.models.generate_content(
+    model="gemini-2.0-flash",
+    contents=[my_file, "Caption this image."],)
 
-# Send the prompt and image to the model
-response = model.generate_content(
-    contents=[prompt, image]
-)
-
-# Print the response
 print(response.text)
 
     
- שליחת תמונה captured_frame.jpg לניתוח עי GEMINI וקבלת תוצאה בצורת Json: 
 
-import google.generativeai as genai
-from PIL import Image
-
-# Replace with your actual Gemini API key
-GOOGLE_API_KEY = "YOUR_API_KEY"
-genai.configure(api_key=GOOGLE_API_KEY)
-
-# Load the Gemini Pro Vision model
-model = genai.GenerativeModel('gemini-pro-vision')
-
-# Load the image
-try:
-    img = Image.open('captured_frame.jpg')
-except FileNotFoundError:
-    print("Error: captured_frame.jpg not found. Make sure you captured an image.")
-    exit()
-
-# Prepare the prompt and image data
-prompt = "Identify the objects present in this image."
-image_parts = [
-    {
-        'mime_type': 'image/jpeg',
-        'data': open('captured_frame.jpg', 'rb').read()
-    },
-]
-
-# Generate the response
-response = model.generate_content([prompt, image_parts])
-
-# Print the response
-print(response.text)
 
  
 
