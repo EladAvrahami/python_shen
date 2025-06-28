@@ -1,4 +1,4 @@
-# video analasys with gemini:
+# video analasys with gemini On linux:
 # Replace with my actual Gemini API key
 # GOOGLE_API_KEY = "AIKEY"
 import cv2
